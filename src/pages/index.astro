@@ -1,0 +1,204 @@
+---
+import Base from '../layouts/Base.astro';
+import { projects } from '../data/projects';
+import { site } from '../data/site';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: site.name,
+    url: site.url,
+    jobTitle: 'Backend Engineer',
+    image: `${site.url}/ahsan-tariq.jpg`,
+    description: site.description,
+    email: `mailto:${site.email}`,
+    sameAs: [site.github, site.linkedin],
+    knowsAbout: [
+      'Backend engineering',
+      'API design',
+      'PostgreSQL',
+      'Query optimisation',
+      'Elasticsearch',
+      'Algolia',
+      'Python',
+      'FastAPI',
+      'Data pipelines',
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: `${site.name} — Portfolio`,
+    url: site.url,
+    inLanguage: 'en',
+    author: { '@type': 'Person', name: site.name },
+  },
+];
+---
+
+<Base
+  title="Ahsan Tariq — Backend Engineer · APIs, query optimisation, data pipelines"
+  description={site.description}
+  jsonLd={jsonLd}
+>
+  <section class="hero">
+    <div class="container">
+      <div class="hero__grid">
+        <div>
+          <p class="eyebrow">Backend engineer · Data engineering &amp; AI</p>
+          <h1>I build the data layer that makes AI features trustworthy.</h1>
+          <p class="lede hero__lede">
+            Two and a half years shipping production systems: golf payments, grants search, a
+            restaurant marketplace, warehouse operations — and a legal-tech platform where a model
+            reads court documents and a human still has to swear to the result.
+          </p>
+          <div class="btn-row">
+            <a class="btn" href="/work">Read the case studies <span class="btn__arrow">→</span></a>
+            <a class="btn btn--ghost" href={site.cv}>Download CV</a>
+          </div>
+        </div>
+
+        <aside class="hero__aside" aria-label="At a glance">
+          <img
+            class="hero__photo"
+            src="/ahsan-tariq.jpg"
+            alt="Portrait of Ahsan Tariq"
+            width="400"
+            height="400"
+            fetchpriority="high"
+            decoding="async"
+          />
+          <dl class="hero__facts">
+            <div class="fact">
+              <dt>Now</dt>
+              <dd><strong>Lead backend engineer</strong> at Serva; team lead and product owner on Restaurant Resource.</dd>
+            </div>
+            <div class="fact">
+              <dt>Depth</dt>
+              <dd>Query plans, indexing, transactional integrity, search relevance, queue-backed pipelines.</dd>
+            </div>
+            <div class="fact">
+              <dt>Stack</dt>
+              <dd>Python · FastAPI · PostgreSQL · Redis · Celery · Elasticsearch · Algolia · Rails</dd>
+            </div>
+            <div class="fact">
+              <dt>Scale</dt>
+              <dd>Five products in production, across payments, marketplaces, operations and legal tech.</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section--tight" aria-label="Summary">
+    <div class="proof">
+      <div class="proof__item">
+        <span class="proof__value">2.5 years</span>
+        <span class="proof__label">Backend in production</span>
+      </div>
+      <div class="proof__item">
+        <span class="proof__value">5 products</span>
+        <span class="proof__label">Shipped and maintained</span>
+      </div>
+      <div class="proof__item">
+        <span class="proof__value">4 industries</span>
+        <span class="proof__label">Payments · marketplace · operations · legal</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Selected work</p>
+          <h2>Five systems, one recurring problem</h2>
+        </div>
+        <p class="mono muted" style="max-width: 30ch">
+          Each case study is written around a decision, not a feature list.
+        </p>
+      </div>
+
+      <ul class="work-list">
+        {projects.map((project) => (
+          <li class="work-item">
+            <a href={`/work/${project.slug}`}>
+              <span class="work-item__index">{project.index}</span>
+              <span>
+                <span class="work-item__title">
+                  {project.name}
+                  {project.current && <span class="badge">Current</span>}
+                </span>
+                <span class="work-item__tagline">{project.tagline}</span>
+              </span>
+              <span class="work-item__stack">
+                {project.cardStack.map((tag) => <span class="tag">{tag}</span>)}
+              </span>
+              <span class="work-item__arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <p style="margin-top: 1.6rem">
+        <a href="/work">All case studies, with role and scope →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">How I work</p>
+          <h2>Three habits that show up in every project</h2>
+        </div>
+      </div>
+
+      <div class="principles">
+        <article class="principle">
+          <span class="principle__n">01</span>
+          <h3>Read the plan before the index</h3>
+          <p>
+            Most slow endpoints are a data-shape problem, not a hardware problem. A cache in front of
+            a bad model makes it permanently slow and temporarily fast.
+          </p>
+        </article>
+        <article class="principle">
+          <span class="principle__n">02</span>
+          <h3>Put invariants in the database</h3>
+          <p>
+            Application-level checks race. Constraints, locks and transactions hold when two requests
+            arrive in the same millisecond — which is exactly when a booking or a payment breaks.
+          </p>
+        </article>
+        <article class="principle">
+          <span class="principle__n">03</span>
+          <h3>Give probabilistic output a gate</h3>
+          <p>
+            A model that is 91% right needs a review step, a confidence score and an immutable record
+            of what was approved. That is part of the feature, not the polish.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container cta__grid">
+      <div>
+        <h2>Want to talk about data layers, search relevance, or the DEAI programme?</h2>
+        <p>
+          I am happy to walk through any of these systems in detail — the decisions, the trade-offs,
+          and the parts I would build differently now.
+        </p>
+      </div>
+      <div class="btn-row cta__actions">
+        <a class="btn" href={`mailto:${site.email}`}>Email me</a>
+        <a class="btn btn--ghost" href={site.cv}>CV</a>
+      </div>
+    </div>
+  </section>
+</Base>

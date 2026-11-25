@@ -1,0 +1,144 @@
+---
+import Base from '../../layouts/Base.astro';
+import { projects, projectNeighbours } from '../../data/projects';
+import { inline } from '../../lib/text';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const neighbours = projectNeighbours(project.slug);
+const canonical = `${site.url}/work/${project.slug}`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: `${project.name} — ${project.tagline}`,
+    description: project.seoDescription,
+    url: canonical,
+    image: `${site.url}/og/${project.slug}.png`,
+    author: { '@type': 'Person', name: site.name, url: site.url },
+    about: project.name,
+    inLanguage: 'en',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+      { '@type': 'ListItem', position: 2, name: 'Work', item: `${site.url}/work` },
+      { '@type': 'ListItem', position: 3, name: project.name, item: canonical },
+    ],
+  },
+];
+---
+
+<Base
+  title={project.seoTitle}
+  description={project.seoDescription}
+  ogType="article"
+  ogImage={`/og/${project.slug}.png`}
+  jsonLd={jsonLd}
+>
+  <article class="container case">
+    <nav class="crumbs mono" aria-label="Breadcrumb">
+      <a href="/work">Work</a> <span aria-hidden="true">/</span> <span>{project.name}</span>
+    </nav>
+
+    <header class="case__head">
+      <p class="eyebrow">{project.kicker}</p>
+      <h1 class="case__title">{project.name}</h1>
+      <p class="case__tagline">{project.tagline}</p>
+      <p class="lede" style="margin-top: 1.3rem">{project.summary}</p>
+    </header>
+
+    <div class="case__body">
+      <aside class="case__aside" aria-label="Project facts">
+        <dl class="aside-block" style="margin: 0">
+          <dt>Role</dt>
+          <dd>{project.role}</dd>
+        </dl>
+        <dl class="aside-block" style="margin: 0">
+          <dt>Period</dt>
+          <dd set:html={inline(project.period)} />
+        </dl>
+        <dl class="aside-block" style="margin: 0">
+          <dt>Scope</dt>
+          <dd set:html={inline(project.scope)} />
+        </dl>
+        <dl class="aside-block" style="margin: 0">
+          <dt>Stack</dt>
+          <dd>{project.stack.join(' · ')}</dd>
+        </dl>
+        {project.external && (
+          <dl class="aside-block" style="margin: 0">
+            <dt>Site</dt>
+            <dd>
+              <a href={project.external.href} rel="noopener">{project.external.label} ↗</a>
+            </dd>
+          </dl>
+        )}
+      </aside>
+
+      <div class="case__main">
+        {project.sections.map((section, i) => (
+          <section class="case-section" id={`s${i + 1}`}>
+            <span class="case-section__label">{String(i + 1).padStart(2, '0')}</span>
+            <h2>{section.title}</h2>
+            {section.paragraphs?.map((paragraph) => <p set:html={inline(paragraph)} />)}
+            {section.bullets && (
+              <ul>
+                {section.bullets.map((bullet) => <li set:html={inline(bullet)} />)}
+              </ul>
+            )}
+            {section.note && <div class="note" set:html={inline(section.note)} />}
+          </section>
+        ))}
+
+        <section class="case-section">
+          <span class="case-section__label">Decisions</span>
+          <h2>What I would defend in review</h2>
+          <ul class="decisions">
+            {project.decisions.map((decision) => (
+              <li class="decision">
+                <h3>{decision.title}</h3>
+                <p set:html={inline(decision.body)} />
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="case-section">
+          <span class="case-section__label">Evaluation</span>
+          <h2>What I measure</h2>
+          {/* TODO(owner): replace every ⟨…⟩ chip with a real number, or delete the row. */}
+          <dl class="metrics">
+            {project.metrics.map((metric) => (
+              <div class="metric">
+                <dt>{metric.label}</dt>
+                <dd set:html={inline(metric.value)} />
+              </div>
+            ))}
+          </dl>
+        </section>
+      </div>
+    </div>
+
+    <nav class="case-nav" aria-label="More case studies">
+      <a href={`/work/${neighbours.previous.slug}`}>
+        <span>Previous</span>
+        <strong>{neighbours.previous.name}</strong>
+      </a>
+      <a href={`/work/${neighbours.next.slug}`}>
+        <span>Next</span>
+        <strong>{neighbours.next.name}</strong>
+      </a>
+    </nav>
+  </article>
+</Base>

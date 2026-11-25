@@ -1,0 +1,243 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    name: 'About Ahsan Tariq',
+    url: `${site.url}/about`,
+    mainEntity: {
+      '@type': 'Person',
+      name: site.name,
+      jobTitle: 'Backend Engineer',
+      url: site.url,
+      image: `${site.url}/ahsan-tariq.jpg`,
+      email: `mailto:${site.email}`,
+      sameAs: [site.github, site.linkedin],
+      knowsAbout: [
+        'PostgreSQL',
+        'Query optimisation',
+        'Elasticsearch',
+        'Algolia',
+        'FastAPI',
+        'Python',
+        'Data pipelines',
+        'Data engineering',
+      ],
+    },
+  },
+];
+
+const skills = [
+  { group: 'Languages', items: ['Python', 'SQL', 'Ruby'] },
+  { group: 'Frameworks & APIs', items: ['FastAPI', 'Ruby on Rails', 'REST API design'] },
+  { group: 'Data', items: ['PostgreSQL', 'Redis', 'Elasticsearch', 'Algolia'] },
+  { group: 'Async & pipelines', items: ['Celery', 'Background workers', 'Retries & idempotency'] },
+  {
+    group: 'Engineering',
+    items: [
+      'Query optimisation',
+      'Index design',
+      'Transactional integrity',
+      'Data modelling',
+      'Testing',
+    ],
+  },
+];
+---
+
+<Base
+  title="About — Ahsan Tariq, backend engineer"
+  description="Backend engineer with 2.5 years across fintech, marketplaces, operations and legal tech. Why I am moving toward data engineering and machine learning, and what I want from the DEAI programme."
+  ogType="profile"
+  jsonLd={jsonLd}
+>
+  <div class="container page-head page-head--split">
+    <div>
+      <p class="eyebrow">About</p>
+      <h1>Backend engineer, moving toward data engineering and machine learning.</h1>
+      <p class="lede">
+        I am Ahsan Tariq. For the last two and a half years I have been the person who makes the data
+        layer behave — schemas, query plans, indexes, pipelines — on products other people's
+        businesses run on. I now also lead a team and own product direction on one of them.
+      </p>
+    </div>
+    <figure class="portrait">
+      <img
+        src="/ahsan-tariq.jpg"
+        alt="Portrait of Ahsan Tariq"
+        width="400"
+        height="400"
+        decoding="async"
+      />
+    </figure>
+  </div>
+
+  <section class="container section--tight">
+    <div class="prose">
+      <p>
+        I started on the API side and drifted toward the part of the stack where correctness is
+        actually decided: the schema, the query plan, the transaction boundary. That is where the
+        interesting failures live. A feature can look finished in a demo and still be selling the
+        same tee time twice, or showing a grant that no longer exists.
+      </p>
+      <p>
+        At A'sTechware I worked across five client products — golf operations and payments, grants
+        discovery, a restaurant directory and marketplace, and warehouse and construction
+        operations. The visible features had nothing in common. The work underneath did: make the
+        data correct under concurrency, make it fast at the size it actually reached, and make it
+        explainable when somebody asks why a number changed.
+      </p>
+      <p>
+        On Serva I lead the backend. It is the first product where the output is a legal document:
+        a model proposes the intake, a human approves it, a server records what happened at the
+        door, and an affidavit is assembled from that record and signed. Working on a system where
+        a plausible guess is worse than a missing field changed how I think about AI features in
+        general.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow eyebrow--plain">Experience</p>
+        <h2>Where the work happened</h2>
+      </div>
+    </div>
+    <ul class="timeline">
+      <li>
+        <span class="timeline__when">Present ⟨start date⟩</span>
+        <div>
+          <p class="timeline__role">Lead Backend Engineer</p>
+          <p class="timeline__org">Serva · Canada (remote)</p>
+          <p class="timeline__body">
+            Backend owner for a process-serving platform: the five-level record model, AI intake
+            with per-field confidence and human approval, affidavit assembly from court PDF forms,
+            and billing from logged attempts. Python, FastAPI, PostgreSQL, Redis, Celery.
+          </p>
+        </div>
+      </li>
+      <li>
+        <span class="timeline__when">2024 — present ⟨confirm⟩</span>
+        <div>
+          <p class="timeline__role">Backend Engineer</p>
+          <p class="timeline__org">A'sTechware</p>
+          <p class="timeline__body">
+            Backend delivery across client products: Golfpay (tee times, memberships, payments),
+            The Grants Hub (Algolia search, saved lists, subscriptions) and Warco (inventory ledger,
+            job costing, reporting). Team lead on Restaurant Resource, owning product direction and
+            the vendor and subscription model.
+          </p>
+        </div>
+      </li>
+      <li>
+        <span class="timeline__when">⟨dates⟩</span>
+        <div>
+          <p class="timeline__role">⟨Earlier role or internship⟩</p>
+          <p class="timeline__org">⟨Company⟩</p>
+          <p class="timeline__body">
+            ⟨Add one or two lines if it supports the DEAI application — otherwise delete this row.⟩
+          </p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="container section">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow eyebrow--plain">Toolkit</p>
+        <h2>What I work with</h2>
+      </div>
+    </div>
+    <div class="skills">
+      {skills.map((group) => (
+        <div class="skill-group">
+          <h3>{group.group}</h3>
+          <ul>
+            {group.items.map((item) => <li class="tag">{item}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow eyebrow--plain">Motivation</p>
+        <h2>Why data engineering, and why DEAI</h2>
+      </div>
+    </div>
+    <div class="prose">
+      <p>
+        DEAI's premise is that AI projects stall without rigorous data engineering. I have spent two
+        and a half years on the other end of that sentence: building the pipelines, review gates and
+        audit trails that a probabilistic feature needs before anyone will trust it with a payment
+        or a court filing. What I have is practical and hard-won. What I do not have is the formal
+        foundation underneath it — cost-based query optimisation as theory rather than instinct,
+        data warehousing done properly, statistics, and the machine learning that I have so far only
+        consumed from the outside.
+      </p>
+      <p>
+        The two-year structure is the reason I am applying to this programme rather than a
+        single-country master. Fundamentals at ULB and UPC, a summer school and a distributed Summer
+        of Code, then a specialisation and a thesis with industry or a research lab — that is the
+        sequence I would design for myself if I were allowed to.
+      </p>
+      <p>
+        ⟨State your specialisation preference. Knowledge-Driven Data Management and Intelligence
+        (TUW) is the closest fit to my indexing and retrieval work. Business, Economics and
+        Financial Data Science (UniPD) would extend the payments side. Data and Intelligence for
+        Heterogeneous Systems (UCBL) is where the marketplace and operations data would fit.⟩
+      </p>
+      <p>
+        For a thesis I am drawn to evaluation and data quality for extraction pipelines: how to
+        measure per-field accuracy on a labelled sample, how to choose a review threshold when a
+        false positive and a false negative cost different amounts, and how to keep human
+        corrections from quietly degrading the record over time. It is the problem I am currently
+        solving by judgement, and I would like to solve it with method.
+      </p>
+      <p>
+        What I would bring to a cohort is narrower and more specific than "industry experience":
+        I know where AI features break in production, because I have had to build the retry, the
+        gate and the audit trail around them.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow eyebrow--plain">Education</p>
+        <h2>⟨Degree and university⟩</h2>
+      </div>
+    </div>
+    <div class="prose">
+      <p>
+        ⟨BSc Computer Science, university, graduation year. Add thesis or final-year project if it
+        is relevant, and the modules that match the DEAI prerequisites.⟩
+      </p>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container cta__grid">
+      <div>
+        <h2>Happy to go deeper on any of this.</h2>
+        <p>
+          If you are reviewing my DEAI application, the case studies are the fastest way into the
+          technical side. Transcripts, references and the motivation letter carry the formal case —
+          this site is a supplement to them, not a substitute.
+        </p>
+      </div>
+      <div class="btn-row cta__actions">
+        <a class="btn" href={`mailto:${site.email}`}>Email me</a>
+        <a class="btn btn--ghost" href={site.cv}>CV</a>
+      </div>
+    </div>
+  </section>
+</Base>
