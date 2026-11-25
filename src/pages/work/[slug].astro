@@ -69,6 +69,12 @@ const jsonLd = [
           <dd set:html={inline(project.period)} />
         </dl>
         <dl class="aside-block" style="margin: 0">
+          <dt>Delivered via</dt>
+          <dd>
+            <a href={site.companyUrl} rel="noopener">{site.company} ↗</a>
+          </dd>
+        </dl>
+        <dl class="aside-block" style="margin: 0">
           <dt>Scope</dt>
           <dd set:html={inline(project.scope)} />
         </dl>

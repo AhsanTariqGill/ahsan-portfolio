@@ -11,6 +11,7 @@ const jsonLd = [
     url: site.url,
     jobTitle: 'Backend Engineer',
     image: `${site.url}/ahsan-tariq.jpg`,
+    worksFor: { '@type': 'Organization', name: site.company, url: site.companyUrl },
     description: site.description,
     email: `mailto:${site.email}`,
     sameAs: [site.github, site.linkedin],
@@ -38,7 +39,7 @@ const jsonLd = [
 ---
 
 <Base
-  title="Ahsan Tariq — Backend Engineer · APIs, query optimisation, data pipelines"
+  title="Ahsan Tariq — Backend Engineer at A'sTechware"
   description={site.description}
   jsonLd={jsonLd}
 >
@@ -72,7 +73,10 @@ const jsonLd = [
           <dl class="hero__facts">
             <div class="fact">
               <dt>Now</dt>
-              <dd><strong>Lead backend engineer</strong> at Serva; team lead and product owner on Restaurant Resource.</dd>
+              <dd>
+                <strong>Team lead</strong> at {site.company}, currently on Serva and Restaurant
+                Resource.
+              </dd>
             </div>
             <div class="fact">
               <dt>Depth</dt>

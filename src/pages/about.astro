@@ -14,6 +14,7 @@ const jsonLd = [
       jobTitle: 'Backend Engineer',
       url: site.url,
       image: `${site.url}/ahsan-tariq.jpg`,
+      worksFor: { '@type': 'Organization', name: site.company, url: site.companyUrl },
       email: `mailto:${site.email}`,
       sameAs: [site.github, site.linkedin],
       knowsAbout: [
@@ -49,8 +50,8 @@ const skills = [
 ---
 
 <Base
-  title="About — Ahsan Tariq, backend engineer"
-  description="Backend engineer with 2.5 years across fintech, marketplaces, operations and legal tech. Why I am moving toward data engineering and machine learning, and what I want from the DEAI programme."
+  title="About — Ahsan Tariq, backend engineer at A'sTechware"
+  description="Backend engineer at A'sTechware, a software house, with 2.5 years across fintech, marketplaces, operations and legal tech. Team lead on Serva and Restaurant Resource, and why I am moving toward data engineering and machine learning."
   ogType="profile"
   jsonLd={jsonLd}
 >
@@ -59,9 +60,10 @@ const skills = [
       <p class="eyebrow">About</p>
       <h1>Backend engineer, moving toward data engineering and machine learning.</h1>
       <p class="lede">
-        I am Ahsan Tariq. For the last two and a half years I have been the person who makes the data
-        layer behave — schemas, query plans, indexes, pipelines — on products other people's
-        businesses run on. I now also lead a team and own product direction on one of them.
+        I am Ahsan Tariq. I work at A'sTechware, a software house, where for the last two and a half
+        years I have been the person who makes the data layer behave — schemas, query plans,
+        indexes, pipelines — on products other people's businesses run on. I have led teams on two
+        of those products, and on one of them I own the product direction as well.
       </p>
     </div>
     <figure class="portrait">
@@ -84,18 +86,18 @@ const skills = [
         same tee time twice, or showing a grant that no longer exists.
       </p>
       <p>
-        At A'sTechware I worked across five client products — golf operations and payments, grants
-        discovery, a restaurant directory and marketplace, and warehouse and construction
+        At A'sTechware I have worked across five client products — golf operations and payments,
+        grants discovery, a restaurant directory and marketplace, and warehouse and construction
         operations. The visible features had nothing in common. The work underneath did: make the
         data correct under concurrency, make it fast at the size it actually reached, and make it
         explainable when somebody asks why a number changed.
       </p>
       <p>
-        On Serva I lead the backend. It is the first product where the output is a legal document:
-        a model proposes the intake, a human approves it, a server records what happened at the
-        door, and an affidavit is assembled from that record and signed. Working on a system where
-        a plausible guess is worse than a missing field changed how I think about AI features in
-        general.
+        On Serva I lead the team and own the backend. It is the first product where the output is a
+        legal document: a model proposes the intake, a human approves it, a server records what
+        happened at the door, and an affidavit is assembled from that record and signed. Working on
+        a system where a plausible guess is worse than a missing field changed how I think about AI
+        features in general.
       </p>
     </div>
   </section>
@@ -111,25 +113,27 @@ const skills = [
       <li>
         <span class="timeline__when">Present ⟨start date⟩</span>
         <div>
-          <p class="timeline__role">Lead Backend Engineer</p>
-          <p class="timeline__org">Serva · Canada (remote)</p>
+          <p class="timeline__role">Team Lead — Serva &amp; Restaurant Resource</p>
+          <p class="timeline__org">A'sTechware · software house</p>
           <p class="timeline__body">
-            Backend owner for a process-serving platform: the five-level record model, AI intake
-            with per-field confidence and human approval, affidavit assembly from court PDF forms,
-            and billing from logged attempts. Python, FastAPI, PostgreSQL, Redis, Celery.
+            Leading delivery on two products. Serva (process serving for Canadian agencies): backend
+            owner for the five-level record model, AI intake with per-field confidence and human
+            approval, affidavit assembly from court PDF forms, and billing from logged attempts.
+            Restaurant Resource (restaurant directory and marketplace): product direction, ranking
+            rules, and the vendor and subscription model. Python, FastAPI, PostgreSQL, Redis,
+            Celery; Rails and Elasticsearch.
           </p>
         </div>
       </li>
       <li>
-        <span class="timeline__when">2024 — present ⟨confirm⟩</span>
+        <span class="timeline__when">2024 — ⟨dates⟩</span>
         <div>
           <p class="timeline__role">Backend Engineer</p>
           <p class="timeline__org">A'sTechware</p>
           <p class="timeline__body">
-            Backend delivery across client products: Golfpay (tee times, memberships, payments),
-            The Grants Hub (Algolia search, saved lists, subscriptions) and Warco (inventory ledger,
-            job costing, reporting). Team lead on Restaurant Resource, owning product direction and
-            the vendor and subscription model.
+            Client delivery on Golfpay (tee times, memberships, payments), The Grants Hub (Algolia
+            search, saved lists, subscriptions) and Warco (inventory ledger, job costing,
+            reporting).
           </p>
         </div>
       </li>

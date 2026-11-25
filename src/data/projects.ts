@@ -42,8 +42,8 @@ export const projects: Project[] = [
     kicker: 'Legal tech · Process serving · Canada',
     tagline: 'From an instruction email to a sworn affidavit on one governed record.',
     summary:
-      'Serva is process-serving software for Canadian agencies. I lead the backend: the five-level record model, the AI intake pipeline that turns emails and court PDFs into structured files, affidavit assembly, and the billing engine that turns logged attempts into invoices.',
-    role: 'Lead Backend Engineer',
+      "Serva is process-serving software for Canadian agencies, built through A'sTechware. I lead the team and own the backend: the five-level record model, the AI intake pipeline that turns emails and court PDFs into structured files, affidavit assembly, and the billing engine that turns logged attempts into invoices.",
+    role: 'Team Lead',
     period: 'Present ⟨start date⟩',
     scope: 'Data model · Intake pipeline · Document assembly · Billing',
     current: true,
@@ -81,7 +81,7 @@ export const projects: Project[] = [
       {
         title: 'My contribution',
         paragraphs: [
-          'I am the lead backend engineer and own the service end to end: schema and migrations, the API surface, background work, and the boundary between what the machine proposes and what a human approves.',
+          'I lead the team and own the backend end to end: schema and migrations, the API surface, background work, and the boundary between what the machine proposes and what a human approves.',
           '⟨Confirm the pieces you personally built and delete the rest: intake extraction pipeline · affidavit assembly and PDF rendering · billing engine · verification service · dispatch network. Add the split of team size and who else worked on the backend.⟩',
         ],
       },
@@ -206,7 +206,7 @@ export const projects: Project[] = [
     summary:
       'The Grants Hub helps organisations discover, track and manage grants. I worked on the backend search layer — Algolia for discovery, PostgreSQL as the source of truth — plus saved lists, subscription state and the synchronisation between the two.',
     role: 'Backend Engineer',
-    period: "A'sTechware ⟨dates⟩",
+    period: '⟨dates⟩',
     scope: 'Search indexing · Saved lists · Subscriptions · Sync pipeline',
     stack: ['Python', 'FastAPI', 'PostgreSQL', 'Algolia', 'Redis', 'Celery'],
     cardStack: ['FastAPI', 'Algolia', 'PostgreSQL'],
@@ -281,7 +281,7 @@ export const projects: Project[] = [
     summary:
       'Golfpay runs tee times, memberships and payments for golf courses across web and mobile. I worked on the backend: availability queries, booking integrity, payment event handling and the operational data the course staff run the day on.',
     role: 'Backend Engineer',
-    period: "A'sTechware ⟨dates⟩",
+    period: '⟨dates⟩',
     scope: 'Availability · Bookings · Payments · Operations',
     stack: ['Python', 'FastAPI', 'PostgreSQL', 'Redis', 'Celery'],
     cardStack: ['FastAPI', 'PostgreSQL', 'Redis'],
@@ -355,7 +355,7 @@ export const projects: Project[] = [
     summary:
       'Warco tracks materials, inventory and jobs for a construction business. I worked on the backend that replaced spreadsheet-driven stock tracking: movement records, job consumption, and the reporting the office runs the month on.',
     role: 'Backend Engineer',
-    period: "A'sTechware ⟨dates⟩",
+    period: '⟨dates⟩',
     scope: 'Inventory ledger · Job consumption · Imports · Reporting',
     stack: ['Python', 'FastAPI', 'PostgreSQL', 'Celery', 'Redis'],
     cardStack: ['FastAPI', 'PostgreSQL', 'Celery'],
