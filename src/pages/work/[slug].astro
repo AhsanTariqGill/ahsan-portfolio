@@ -1,11 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { projects, projectNeighbours } from '../../data/projects';
+import { visibleProjects, projectNeighbours } from '../../data/projects';
 import { inline } from '../../lib/text';
 import { site } from '../../data/site';
 
 export function getStaticPaths() {
-  return projects.map((project) => ({
+  return visibleProjects.map((project) => ({
     params: { slug: project.slug },
     props: { project },
   }));
@@ -56,6 +56,9 @@ const jsonLd = [
       <h1 class="case__title">{project.name}</h1>
       <p class="case__tagline">{project.tagline}</p>
       <p class="lede" style="margin-top: 1.3rem">{project.summary}</p>
+      <p class="case__delivered mono muted">
+        Delivered via <a href={site.companyUrl} rel="noopener">{site.company}</a>.
+      </p>
     </header>
 
     <div class="case__body">
@@ -63,16 +66,6 @@ const jsonLd = [
         <dl class="aside-block" style="margin: 0">
           <dt>Role</dt>
           <dd>{project.role}</dd>
-        </dl>
-        <dl class="aside-block" style="margin: 0">
-          <dt>Period</dt>
-          <dd set:html={inline(project.period)} />
-        </dl>
-        <dl class="aside-block" style="margin: 0">
-          <dt>Delivered via</dt>
-          <dd>
-            <a href={site.companyUrl} rel="noopener">{site.company} ↗</a>
-          </dd>
         </dl>
         <dl class="aside-block" style="margin: 0">
           <dt>Scope</dt>
@@ -103,13 +96,12 @@ const jsonLd = [
                 {section.bullets.map((bullet) => <li set:html={inline(bullet)} />)}
               </ul>
             )}
-            {section.note && <div class="note" set:html={inline(section.note)} />}
           </section>
         ))}
 
         <section class="case-section">
           <span class="case-section__label">Decisions</span>
-          <h2>What I would defend in review</h2>
+          <h2>Key technical decisions</h2>
           <ul class="decisions">
             {project.decisions.map((decision) => (
               <li class="decision">
@@ -119,24 +111,10 @@ const jsonLd = [
             ))}
           </ul>
         </section>
-
-        <section class="case-section">
-          <span class="case-section__label">Evaluation</span>
-          <h2>What I measure</h2>
-          {/* TODO(owner): replace every ⟨…⟩ chip with a real number, or delete the row. */}
-          <dl class="metrics">
-            {project.metrics.map((metric) => (
-              <div class="metric">
-                <dt>{metric.label}</dt>
-                <dd set:html={inline(metric.value)} />
-              </div>
-            ))}
-          </dl>
-        </section>
       </div>
     </div>
 
-    <nav class="case-nav" aria-label="More case studies">
+    <nav class="case-nav" aria-label="More projects">
       <a href={`/work/${neighbours.previous.slug}`}>
         <span>Previous</span>
         <strong>{neighbours.previous.name}</strong>

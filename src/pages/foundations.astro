@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { prerequisites, moduleFit, gaps } from '../data/foundations';
-import { inline } from '../lib/text';
+import { courseGroups, developmentAreas } from '../data/foundations';
 import { site } from '../data/site';
 
 const jsonLd = {
@@ -10,46 +9,41 @@ const jsonLd = {
   name: 'Foundations — Ahsan Tariq',
   url: `${site.url}/foundations`,
   description:
-    'A mapping between the DEAI programme prerequisites and the coursework, production work and gaps in my background.',
+    'B.Sc. Computer Science coursework at UET Lahore (Narowal Campus), grouped by area, with the projects where each area is used.',
   author: { '@type': 'Person', name: site.name, url: site.url },
 };
 ---
 
 <Base
-  title="Foundations — DEAI prerequisites against evidence | Ahsan Tariq"
-  description="Relational databases and query optimisation, algorithms, statistics, modelling, graph theory, sets and logic — mapped to coursework and production evidence, with the gaps stated plainly."
+  title="Foundations — coursework by area | Ahsan Tariq"
+  description="B.Sc. Computer Science coursework at UET Lahore (Narowal Campus), grouped by area, with the projects where each area is used. Overall CGPA 3.734 / 4.00."
   jsonLd={jsonLd}
 >
   <div class="container page-head">
     <p class="eyebrow">Foundations</p>
-    <h1>The prerequisites, stated against evidence.</h1>
+    <h1>Coursework, grouped by area.</h1>
     <p class="lede">
-      DEAI names the background it expects before the master begins. This page maps each
-      requirement to where I actually have it — formal coursework, production work, or a gap I am
-      not going to dress up.
+      B.Sc. Computer Science at UET Lahore (Narowal Campus), session 2020 to 2024. Course names
+      only — no individual grades. Overall CGPA 3.734 / 4.00.
     </p>
   </div>
 
   <section class="container section--tight">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow eyebrow--plain">01 — Required background</p>
-        <h2>What the programme asks for</h2>
-      </div>
-    </div>
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th scope="col">Requirement</th>
-            <th scope="col">Where I have it</th>
+            <th scope="col">Area</th>
+            <th scope="col">Courses</th>
+            <th scope="col">Where it shows up</th>
           </tr>
         </thead>
         <tbody>
-          {prerequisites.map((row) => (
+          {courseGroups.map((group) => (
             <tr>
-              <td><strong set:html={inline(row.requirement)} /></td>
-              <td set:html={inline(row.evidence)} />
+              <td><strong>{group.area}</strong></td>
+              <td>{group.courses.join(', ')}</td>
+              <td>{group.application ?? '—'}</td>
             </tr>
           ))}
         </tbody>
@@ -60,56 +54,21 @@ const jsonLd = {
   <section class="container section">
     <div class="section-head">
       <div>
-        <p class="eyebrow eyebrow--plain">02 — Course fit</p>
-        <h2>What I bring to each module</h2>
-      </div>
-      <p class="mono muted" style="max-width: 34ch">
-        Two years of doing a version of this work without the theory behind it.
-      </p>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">DEAI module</th>
-            <th scope="col">What I bring</th>
-          </tr>
-        </thead>
-        <tbody>
-          {moduleFit.map((row) => (
-            <tr>
-              <td><strong set:html={inline(row.requirement)} /></td>
-              <td set:html={inline(row.evidence)} />
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="container section">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow eyebrow--plain">03 — Honest gaps</p>
-        <h2>What I am applying to learn</h2>
+        <p class="eyebrow eyebrow--plain">Next</p>
+        <h2>Areas I want to develop</h2>
       </div>
     </div>
     <div class="prose">
       <p>
-        A portfolio that only lists strengths is a marketing document. These are the three areas
-        where my experience is thinner than my data engineering work, and where the programme
-        would actually change what I can build.
+        My practical experience is strongest in the layer that makes AI output usable: pipelines,
+        review steps and audit trails. These are the areas I want to strengthen through the
+        programme.
       </p>
       <ul>
-        {gaps.map((gap) => <li set:html={inline(gap)} />)}
+        {developmentAreas.map((area) => <li>{area}</li>)}
       </ul>
       <p>
-        The short version: I am strong on the layer that makes AI outputs reproducible, and
-        comparatively new to the modelling layer itself. That asymmetry is precisely why DEAI —
-        rather than a pure machine learning master — is the right programme for me.
-      </p>
-      <p>
-        <a href="/work">The case studies show the first half →</a>
+        <a href="/work">See the case studies →</a>
       </p>
     </div>
   </section>

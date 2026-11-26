@@ -507,7 +507,7 @@ hr {
 
 .proof {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   border-top: 1px solid var(--line-strong);
   border-bottom: 1px solid var(--line-strong);
 }
@@ -552,6 +552,47 @@ hr {
     border-top: 1px solid var(--line);
     padding-left: 0;
   }
+}
+
+/* Education / award lines under the summary strip. */
+.recognition {
+  margin-top: 1.4rem;
+}
+
+.recognition__row {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 0.7rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.94rem;
+  color: var(--ink-2);
+}
+
+.recognition__row:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.recognition__label {
+  font-size: 0.64rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.25rem;
+}
+
+@media (max-width: 640px) {
+  .recognition__row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
+
+/* "Delivered via ..." line under a case-study summary. */
+.case__delivered {
+  margin-top: 0.9rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
 }
 
 /* ---------- work list ---------- */
@@ -1238,7 +1279,7 @@ td strong {
 
 .timeline li {
   display: grid;
-  grid-template-columns: 9rem minmax(0, 1fr);
+  grid-template-columns: 10.5rem minmax(0, 1fr);
   gap: 1.5rem;
   padding-block: 1.4rem;
   border-top: 1px solid var(--line);

@@ -10,4 +10,15 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
   integrations: [sitemap()],
+  vite: {
+    // A leading dot allows the domain and all of its subdomains, so a new
+    // ngrok tunnel hostname keeps working after a restart. Dev/preview only;
+    // these hosts are never used by the static build.
+    server: {
+      allowedHosts: ['.ngrok-free.dev', '.ngrok.app', '.ngrok.io'],
+    },
+    preview: {
+      allowedHosts: ['.ngrok-free.dev', '.ngrok.app', '.ngrok.io'],
+    },
+  },
 });

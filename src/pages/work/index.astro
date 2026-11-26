@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { projects } from '../../data/projects';
+import { visibleProjects } from '../../data/projects';
 import { site } from '../../data/site';
 
 const jsonLd = [
@@ -10,9 +10,9 @@ const jsonLd = [
     name: 'Case studies — Ahsan Tariq',
     url: `${site.url}/work`,
     description:
-      'Backend case studies across payments, marketplaces, grants discovery, warehouse operations and legal tech.',
+      'Projects covering legal technology, marketplaces, grants discovery and golf operations.',
     author: { '@type': 'Person', name: site.name, url: site.url },
-    hasPart: projects.map((project) => ({
+    hasPart: visibleProjects.map((project) => ({
       '@type': 'Article',
       name: `${project.name} — ${project.tagline}`,
       url: `${site.url}/work/${project.slug}`,
@@ -22,23 +22,22 @@ const jsonLd = [
 ---
 
 <Base
-  title="Case studies — Ahsan Tariq, backend engineer"
-  description="Five production systems across payments, marketplaces, grants discovery, warehouse operations and legal tech — written around the engineering decisions rather than feature lists."
+  title="Case studies — Ahsan Tariq"
+  description="Projects covering legal technology, marketplaces, grants discovery and golf operations. Each explains the problem, my role and key technical decisions."
   jsonLd={jsonLd}
 >
   <div class="container page-head">
     <p class="eyebrow">Work</p>
-    <h1>Five systems, four industries, one theme.</h1>
+    <h1>Selected projects</h1>
     <p class="lede">
-      Every project below broke in the same place: the data layer. A booking that could be sold
-      twice, a search index that drifted, an inventory number nobody could explain. Each case study
-      covers the context, my role, the decisions I would defend, and what I measured.
+      Projects covering legal technology, marketplaces, grants discovery and golf operations. Each
+      explains the problem, my role and key technical decisions.
     </p>
   </div>
 
   <section class="container section--tight">
     <div class="cards">
-      {projects.map((project) => (
+      {visibleProjects.map((project) => (
         <article class="card">
           <a class="card__link" href={`/work/${project.slug}`}>
             <p class="card__kicker">

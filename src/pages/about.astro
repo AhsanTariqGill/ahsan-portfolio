@@ -11,10 +11,13 @@ const jsonLd = [
     mainEntity: {
       '@type': 'Person',
       name: site.name,
-      jobTitle: 'Backend Engineer',
+      jobTitle: 'Team Lead',
       url: site.url,
       image: `${site.url}/ahsan-tariq.jpg`,
       worksFor: { '@type': 'Organization', name: site.company, url: site.companyUrl },
+      alumniOf: { '@type': 'CollegeOrUniversity', name: site.education.institution },
+      award: `${site.award.text}, ${site.award.date}`,
+      address: { '@type': 'PostalAddress', addressLocality: 'Lahore', addressCountry: 'PK' },
       email: `mailto:${site.email}`,
       sameAs: [site.github, site.linkedin],
       knowsAbout: [
@@ -50,20 +53,18 @@ const skills = [
 ---
 
 <Base
-  title="About — Ahsan Tariq, backend engineer at A'sTechware"
-  description="Backend engineer at A'sTechware, a software house, with 2.5 years across fintech, marketplaces, operations and legal tech. Team lead on Serva and Restaurant Resource, and why I am moving toward data engineering and machine learning."
+  title="About — Ahsan Tariq, team lead and software engineer"
+  description="Software engineer and team lead at A'sTechware in Lahore. B.Sc. Computer Science, UET Lahore (Narowal Campus), CGPA 3.734 / 4.00. Why I am moving toward data engineering and machine learning."
   ogType="profile"
   jsonLd={jsonLd}
 >
   <div class="container page-head page-head--split">
     <div>
       <p class="eyebrow">About</p>
-      <h1>Backend engineer, moving toward data engineering and machine learning.</h1>
+      <h1>Software engineer and team lead, focused on backend and data systems.</h1>
       <p class="lede">
-        I am Ahsan Tariq. I work at A'sTechware, a software house, where for the last two and a half
-        years I have been the person who makes the data layer behave — schemas, query plans,
-        indexes, pipelines — on products other people's businesses run on. I have led teams on two
-        of those products, and on one of them I own the product direction as well.
+        I am Ahsan Tariq. I work at A'sTechware in Lahore, Pakistan — associate software engineer from
+        July 2024, software engineer since September 2025, and team lead since June 2026.
       </p>
     </div>
     <figure class="portrait">
@@ -80,24 +81,21 @@ const skills = [
   <section class="container section--tight">
     <div class="prose">
       <p>
-        I started on the API side and drifted toward the part of the stack where correctness is
-        actually decided: the schema, the query plan, the transaction boundary. That is where the
-        interesting failures live. A feature can look finished in a demo and still be selling the
-        same tee time twice, or showing a grant that no longer exists.
+        I started on the API side and moved toward the parts of the stack where correctness is
+        decided: the schema, the query plan, the transaction boundary. That is where the interesting
+        failures live. A feature can look finished in a demo and still be selling the same tee time
+        twice.
       </p>
       <p>
-        At A'sTechware I have worked across five client products — golf operations and payments,
-        grants discovery, a restaurant directory and marketplace, and warehouse and construction
-        operations. The visible features had nothing in common. The work underneath did: make the
-        data correct under concurrency, make it fast at the size it actually reached, and make it
-        explainable when somebody asks why a number changed.
+        At A'sTechware I have worked on Golfpay, The Grants Hub, Restaurant Resource and Serva. The
+        features differ; the underlying work is similar: keep the data correct under concurrency,
+        keep queries fast as the data grows, and make it explainable when a number changes.
       </p>
       <p>
-        On Serva I lead the team and own the backend. It is the first product where the output is a
-        legal document: a model proposes the intake, a human approves it, a server records what
-        happened at the door, and an affidavit is assembled from that record and signed. Working on
-        a system where a plausible guess is worse than a missing field changed how I think about AI
-        features in general.
+        On Serva I am the main backend lead. The product's output is a legal document: an intake
+        pipeline reads instruction emails and court PDFs, an affidavit is assembled from recorded
+        field facts, and billing is derived from logged attempts. Working on a system where a
+        plausible guess is worse than a missing field changed how I think about AI features.
       </p>
     </div>
   </section>
@@ -105,49 +103,25 @@ const skills = [
   <section class="container section">
     <div class="section-head">
       <div>
-        <p class="eyebrow eyebrow--plain">Experience</p>
-        <h2>Where the work happened</h2>
+        <p class="eyebrow eyebrow--plain">At a glance</p>
+        <h2>Experience and education</h2>
       </div>
+      <p class="mono muted"><a href="/background">Full background →</a></p>
     </div>
-    <ul class="timeline">
-      <li>
-        <span class="timeline__when">Present ⟨start date⟩</span>
-        <div>
-          <p class="timeline__role">Team Lead — Serva &amp; Restaurant Resource</p>
-          <p class="timeline__org">A'sTechware · software house</p>
-          <p class="timeline__body">
-            Leading delivery on two products. Serva (process serving for Canadian agencies): backend
-            owner for the five-level record model, AI intake with per-field confidence and human
-            approval, affidavit assembly from court PDF forms, and billing from logged attempts.
-            Restaurant Resource (restaurant directory and marketplace): product direction, ranking
-            rules, and the vendor and subscription model. Python, FastAPI, PostgreSQL, Redis,
-            Celery; Rails and Elasticsearch.
-          </p>
-        </div>
-      </li>
-      <li>
-        <span class="timeline__when">2024 — ⟨dates⟩</span>
-        <div>
-          <p class="timeline__role">Backend Engineer</p>
-          <p class="timeline__org">A'sTechware</p>
-          <p class="timeline__body">
-            Client delivery on Golfpay (tee times, memberships, payments), The Grants Hub (Algolia
-            search, saved lists, subscriptions) and Warco (inventory ledger, job costing,
-            reporting).
-          </p>
-        </div>
-      </li>
-      <li>
-        <span class="timeline__when">⟨dates⟩</span>
-        <div>
-          <p class="timeline__role">⟨Earlier role or internship⟩</p>
-          <p class="timeline__org">⟨Company⟩</p>
-          <p class="timeline__body">
-            ⟨Add one or two lines if it supports the DEAI application — otherwise delete this row.⟩
-          </p>
-        </div>
-      </li>
-    </ul>
+    <dl class="metrics">
+      <div class="metric">
+        <dt>Now</dt>
+        <dd>Team Lead, A'sTechware (since June 2026)</dd>
+      </div>
+      <div class="metric">
+        <dt>Before</dt>
+        <dd>Software Engineer (since September 2025); Associate Software Engineer (July 2024 – September 2025)</dd>
+      </div>
+      <div class="metric">
+        <dt>Education</dt>
+        <dd>B.Sc. Computer Science, UET Lahore (Narowal Campus), 2020 – 2024, CGPA 3.734 / 4.00</dd>
+      </div>
+    </dl>
   </section>
 
   <section class="container section">
@@ -173,57 +147,30 @@ const skills = [
     <div class="section-head">
       <div>
         <p class="eyebrow eyebrow--plain">Motivation</p>
-        <h2>Why data engineering, and why DEAI</h2>
+        <h2>Why data engineering, and why this programme</h2>
       </div>
     </div>
     <div class="prose">
       <p>
-        DEAI's premise is that AI projects stall without rigorous data engineering. I have spent two
-        and a half years on the other end of that sentence: building the pipelines, review gates and
-        audit trails that a probabilistic feature needs before anyone will trust it with a payment
-        or a court filing. What I have is practical and hard-won. What I do not have is the formal
-        foundation underneath it — cost-based query optimisation as theory rather than instinct,
-        data warehousing done properly, statistics, and the machine learning that I have so far only
-        consumed from the outside.
+        I want to strengthen my foundations in data engineering and machine learning. My practical
+        experience is in the layer that makes AI output usable: pipelines, review steps, retries and
+        audit trails. What I do not have yet is the formal foundation underneath it — query
+        optimisation as theory rather than instinct, data warehousing, statistics, and machine
+        learning beyond coursework and one final-year project.
       </p>
       <p>
         The two-year structure is the reason I am applying to this programme rather than a
-        single-country master. Fundamentals at ULB and UPC, a summer school and a distributed Summer
-        of Code, then a specialisation and a thesis with industry or a research lab — that is the
-        sequence I would design for myself if I were allowed to.
+        single-country master: fundamentals at ULB and UPC, a summer school, then a specialisation
+        and a thesis with industry or a research lab.
       </p>
       <p>
-        ⟨State your specialisation preference. Knowledge-Driven Data Management and Intelligence
-        (TUW) is the closest fit to my indexing and retrieval work. Business, Economics and
-        Financial Data Science (UniPD) would extend the payments side. Data and Intelligence for
-        Heterogeneous Systems (UCBL) is where the marketplace and operations data would fit.⟩
+        I am interested in evaluation and data quality for extraction pipelines: how per-field
+        accuracy is measured on a labelled sample, how a review threshold is chosen when a false
+        positive and a false negative cost different amounts, and how human corrections are kept
+        from degrading the record over time.
       </p>
       <p>
-        For a thesis I am drawn to evaluation and data quality for extraction pipelines: how to
-        measure per-field accuracy on a labelled sample, how to choose a review threshold when a
-        false positive and a false negative cost different amounts, and how to keep human
-        corrections from quietly degrading the record over time. It is the problem I am currently
-        solving by judgement, and I would like to solve it with method.
-      </p>
-      <p>
-        What I would bring to a cohort is narrower and more specific than "industry experience":
-        I know where AI features break in production, because I have had to build the retry, the
-        gate and the audit trail around them.
-      </p>
-    </div>
-  </section>
-
-  <section class="container section">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow eyebrow--plain">Education</p>
-        <h2>⟨Degree and university⟩</h2>
-      </div>
-    </div>
-    <div class="prose">
-      <p>
-        ⟨BSc Computer Science, university, graduation year. Add thesis or final-year project if it
-        is relevant, and the modules that match the DEAI prerequisites.⟩
+        Production work has shown me why AI features need retries, review steps and audit trails.
       </p>
     </div>
   </section>
@@ -240,7 +187,7 @@ const skills = [
       </div>
       <div class="btn-row cta__actions">
         <a class="btn" href={`mailto:${site.email}`}>Email me</a>
-        <a class="btn btn--ghost" href={site.cv}>CV</a>
+        <a class="btn btn--ghost" href="/background">Background</a>
       </div>
     </div>
   </section>

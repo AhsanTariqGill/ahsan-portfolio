@@ -1,11 +1,10 @@
 ---
-import { site } from '../data/site';
-
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 const links = [
   { href: '/work', label: 'Work' },
   { href: '/foundations', label: 'Foundations' },
+  { href: '/background', label: 'Background' },
   { href: '/about', label: 'About' },
 ];
 
@@ -26,7 +25,7 @@ const isActive = (href: string) =>
       />
       <span class="brand__text">
         Ahsan Tariq
-        <small>Backend engineer · {site.company}</small>
+        <small>Team Lead / Software Engineer</small>
       </span>
     </a>
 

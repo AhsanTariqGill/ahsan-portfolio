@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import { experience, activities, finalYearProject } from '../data/background';
+import { site } from '../data/site';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  name: 'Background — Ahsan Tariq',
+  url: `${site.url}/background`,
+  mainEntity: {
+    '@type': 'Person',
+    name: site.name,
+    jobTitle: 'Team Lead',
+    worksFor: { '@type': 'Organization', name: site.company, url: site.companyUrl },
+    alumniOf: { '@type': 'CollegeOrUniversity', name: site.education.institution },
+    award: `${site.award.text}, ${site.award.date}`,
+    knowsLanguage: 'English',
+  },
+};
+---
+
+<Base
+  title="Background — experience, education and activities | Ahsan Tariq"
+  description="Experience at A'sTechware (associate software engineer, software engineer, team lead), B.Sc. Computer Science at UET Lahore (Narowal Campus) with CGPA 3.734 / 4.00, student society roles, and the final-year project."
+  ogType="profile"
+  jsonLd={jsonLd}
+>
+  <div class="container page-head">
+    <p class="eyebrow">Background</p>
+    <h1>Experience, education and activities.</h1>
+    <p class="lede">
+      Full-time at A'sTechware in Lahore since July 2024. Before that, a B.Sc. Computer Science at
+      UET Lahore (Narowal Campus).
+    </p>
+  </div>
+
+  <section class="container section--tight" id="experience">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow eyebrow--plain">01 — Experience</p>
+        <h2>A'sTechware</h2>
+      </div>
+      <p class="mono muted">Full-time, on-site, Lahore</p>
+    </div>
+    <ul class="timeline">
+      {experience.map((role) => (
+        <li>
+          <span class="timeline__when">{role.dates}</span>
+          <div>
+            <p class="timeline__role">{role.title}</p>
+            <p class="timeline__org">{role.org}</p>
+            <p class="timeline__body">{role.body}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="container section" id="education">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow eyebrow--plain">02 — Education and recognition</p>
+        <h2>B.Sc. Computer Science</h2>
+      </div>
+    </div>
+    <dl class="metrics">
+      <div class="metric">
+        <dt>Degree</dt>
+        <dd>{site.education.degree}</dd>
+      </div>
+      <div class="metric">
+        <dt>Institution</dt>
+        <dd>{site.education.institution}</dd>
+      </div>
+      <div class="metric">
+        <dt>Session</dt>
+        <dd>{site.education.years}</dd>
+      </div>
+      <div class="metric">
+        <dt>CGPA</dt>
+        <dd>{site.education.cgpa}</dd>
+      </div>
+      <div class="metric">
+        <dt>English</dt>
+        <dd>{site.ielts}</dd>
+      </div>
+    </dl>
+    <div class="prose">
+      <p style="margin-top: 1.6rem">
+        <strong>Award.</strong> {site.award.text}, {site.award.date}.
+      </p>
+    </div>
+  </section>
+
+  <section class="container section" id="activities">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow eyebrow--plain">03 — Leadership and activities</p>
+        <h2>Student societies</h2>
+      </div>
+    </div>
+    <ul class="timeline">
+      {activities.map((activity) => (
+        <li>
+          <span class="timeline__when">{activity.role}</span>
+          <div>
+            <p class="timeline__role">{activity.name}</p>
+            {activity.body && <p class="timeline__body">{activity.body}</p>}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="container section" id="final-year-project">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow eyebrow--plain">04 — Final-year project</p>
+        <h2>Detection system</h2>
+      </div>
+    </div>
+    <div class="prose">
+      <p>{finalYearProject}</p>
+    </div>
+  </section>
+</Base>

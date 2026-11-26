@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { projects } from '../data/projects';
+import { visibleProjects } from '../data/projects';
 import { site } from '../data/site';
 
 const jsonLd = [
@@ -9,15 +9,18 @@ const jsonLd = [
     '@type': 'Person',
     name: site.name,
     url: site.url,
-    jobTitle: 'Backend Engineer',
+    jobTitle: 'Team Lead',
     image: `${site.url}/ahsan-tariq.jpg`,
     worksFor: { '@type': 'Organization', name: site.company, url: site.companyUrl },
+    alumniOf: { '@type': 'CollegeOrUniversity', name: site.education.institution },
+    award: `${site.award.text}, ${site.award.date}`,
+    address: { '@type': 'PostalAddress', addressLocality: 'Lahore', addressCountry: 'PK' },
     description: site.description,
     email: `mailto:${site.email}`,
     sameAs: [site.github, site.linkedin],
     knowsAbout: [
       'Backend engineering',
-      'API design',
+      'Data modelling',
       'PostgreSQL',
       'Query optimisation',
       'Elasticsearch',
@@ -39,7 +42,7 @@ const jsonLd = [
 ---
 
 <Base
-  title="Ahsan Tariq — Backend Engineer at A'sTechware"
+  title="Ahsan Tariq — Team Lead / Software Engineer at A'sTechware"
   description={site.description}
   jsonLd={jsonLd}
 >
@@ -47,16 +50,16 @@ const jsonLd = [
     <div class="container">
       <div class="hero__grid">
         <div>
-          <p class="eyebrow">Backend engineer · Data engineering &amp; AI</p>
+          <p class="eyebrow">Software engineer and team lead · Backend and data systems</p>
           <h1>I build the data layer that makes AI features trustworthy.</h1>
           <p class="lede hero__lede">
-            Two and a half years shipping production systems: golf payments, grants search, a
-            restaurant marketplace, warehouse operations — and a legal-tech platform where a model
-            reads court documents and a human still has to swear to the result.
+            I am a software engineer and team lead focused on backend and data systems. My work
+            includes data modelling, search and document-processing pipelines. I want to strengthen
+            my foundations in data engineering and machine learning.
           </p>
           <div class="btn-row">
             <a class="btn" href="/work">Read the case studies <span class="btn__arrow">→</span></a>
-            <a class="btn btn--ghost" href={site.cv}>Download CV</a>
+            <a class="btn btn--ghost" href="/background">Background</a>
           </div>
         </div>
 
@@ -73,22 +76,19 @@ const jsonLd = [
           <dl class="hero__facts">
             <div class="fact">
               <dt>Now</dt>
-              <dd>
-                <strong>Team lead</strong> at {site.company}, currently on Serva and Restaurant
-                Resource.
-              </dd>
+              <dd><strong>Team lead</strong> at {site.company}; software engineer since September 2025.</dd>
             </div>
             <div class="fact">
-              <dt>Depth</dt>
-              <dd>Query plans, indexing, transactional integrity, search relevance, queue-backed pipelines.</dd>
+              <dt>Based</dt>
+              <dd>{site.location} · full-time, on-site</dd>
+            </div>
+            <div class="fact">
+              <dt>Focus</dt>
+              <dd>Backend and data systems: data modelling, query optimisation, search and document-processing pipelines.</dd>
             </div>
             <div class="fact">
               <dt>Stack</dt>
               <dd>Python · FastAPI · PostgreSQL · Redis · Celery · Elasticsearch · Algolia · Rails</dd>
-            </div>
-            <div class="fact">
-              <dt>Scale</dt>
-              <dd>Five products in production, across payments, marketplaces, operations and legal tech.</dd>
             </div>
           </dl>
         </aside>
@@ -99,17 +99,24 @@ const jsonLd = [
   <section class="container section--tight" aria-label="Summary">
     <div class="proof">
       <div class="proof__item">
-        <span class="proof__value">2.5 years</span>
-        <span class="proof__label">Backend in production</span>
+        <span class="proof__value">2+ years</span>
+        <span class="proof__label">Full-time at A'sTechware, Lahore</span>
       </div>
       <div class="proof__item">
-        <span class="proof__value">5 products</span>
-        <span class="proof__label">Shipped and maintained</span>
+        <span class="proof__value">Team lead</span>
+        <span class="proof__label">Since June 2026, alongside software engineering</span>
       </div>
-      <div class="proof__item">
-        <span class="proof__value">4 industries</span>
-        <span class="proof__label">Payments · marketplace · operations · legal</span>
-      </div>
+    </div>
+
+    <div class="recognition">
+      <p class="recognition__row">
+        <span class="recognition__label mono">Education</span>
+        <span>B.Sc. Computer Science, UET Lahore (Narowal Campus), CGPA 3.734 / 4.00</span>
+      </p>
+      <p class="recognition__row">
+        <span class="recognition__label mono">Award</span>
+        <span>{site.award.text}, {site.award.date}</span>
+      </p>
     </div>
   </section>
 
@@ -118,7 +125,7 @@ const jsonLd = [
       <div class="section-head">
         <div>
           <p class="eyebrow">Selected work</p>
-          <h2>Five systems, one recurring problem</h2>
+          <h2>Selected projects</h2>
         </div>
         <p class="mono muted" style="max-width: 30ch">
           Each case study is written around a decision, not a feature list.
@@ -126,7 +133,7 @@ const jsonLd = [
       </div>
 
       <ul class="work-list">
-        {projects.map((project) => (
+        {visibleProjects.map((project) => (
           <li class="work-item">
             <a href={`/work/${project.slug}`}>
               <span class="work-item__index">{project.index}</span>
@@ -147,7 +154,7 @@ const jsonLd = [
       </ul>
 
       <p style="margin-top: 1.6rem">
-        <a href="/work">All case studies, with role and scope →</a>
+        <a href="/work">All projects, with role and scope →</a>
       </p>
     </div>
   </section>
@@ -182,8 +189,8 @@ const jsonLd = [
           <span class="principle__n">03</span>
           <h3>Give probabilistic output a gate</h3>
           <p>
-            A model that is 91% right needs a review step, a confidence score and an immutable record
-            of what was approved. That is part of the feature, not the polish.
+            Even a highly accurate model needs a way to handle its errors. That handling is part of
+            the feature, not the polish.
           </p>
         </article>
       </div>
@@ -201,7 +208,7 @@ const jsonLd = [
       </div>
       <div class="btn-row cta__actions">
         <a class="btn" href={`mailto:${site.email}`}>Email me</a>
-        <a class="btn btn--ghost" href={site.cv}>CV</a>
+        <a class="btn btn--ghost" href="/background">Background</a>
       </div>
     </div>
   </section>
