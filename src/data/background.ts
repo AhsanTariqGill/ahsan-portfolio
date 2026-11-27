@@ -53,4 +53,4 @@ export const activities: Activity[] = [
 ];
 
 export const finalYearProject =
-  'Team lead of four students. The project used LLMs and transformer models for the main detection task, then built a system around them to make it a working product.';
+  'An image forgery detection and localisation tool, built by a team of four with me as team lead. It detects and localises copy-move, copy-paste and deepfake manipulations. A Flask API serves the models to a React front end that displays the results. The detection models use the Xception architecture for feature extraction. I trained and evaluated the models in Google Colab on the CASIA v1 and CASIA v2 datasets.';

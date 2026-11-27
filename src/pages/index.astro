@@ -20,14 +20,13 @@ const jsonLd = [
     sameAs: [site.github, site.linkedin],
     knowsAbout: [
       'Backend engineering',
-      'Data modelling',
+      'Ruby on Rails',
+      'Python',
+      'FastAPI',
       'PostgreSQL',
       'Query optimisation',
       'Elasticsearch',
       'Algolia',
-      'Python',
-      'FastAPI',
-      'Data pipelines',
     ],
   },
   {
@@ -51,7 +50,7 @@ const jsonLd = [
       <div class="hero__grid">
         <div>
           <p class="eyebrow">Software engineer and team lead · Backend and data systems</p>
-          <h1>I build the data layer that makes AI features trustworthy.</h1>
+          <h1>I make backend systems fast and keep their data dependable.</h1>
           <p class="lede hero__lede">
             I am a software engineer and team lead focused on backend and data systems. My work
             includes data modelling, search and document-processing pipelines. I want to strengthen
@@ -88,7 +87,7 @@ const jsonLd = [
             </div>
             <div class="fact">
               <dt>Stack</dt>
-              <dd>Python · FastAPI · PostgreSQL · Redis · Celery · Elasticsearch · Algolia · Rails</dd>
+              <dd>Ruby on Rails · Python · FastAPI · PostgreSQL · Redis · Elasticsearch · Algolia · Next.js</dd>
             </div>
           </dl>
         </aside>
@@ -172,26 +171,20 @@ const jsonLd = [
         <article class="principle">
           <span class="principle__n">01</span>
           <h3>Read the plan before the index</h3>
-          <p>
-            Most slow endpoints are a data-shape problem, not a hardware problem. A cache in front of
-            a bad model makes it permanently slow and temporarily fast.
-          </p>
+          <p>Most slow endpoints are a data-shape problem, not a hardware problem.</p>
         </article>
         <article class="principle">
           <span class="principle__n">02</span>
-          <h3>Put invariants in the database</h3>
+          <h3>Precompute what does not need to be live</h3>
           <p>
-            Application-level checks race. Constraints, locks and transactions hold when two requests
-            arrive in the same millisecond — which is exactly when a booking or a payment breaks.
+            Heavy reports and slot calculations are cheaper computed ahead of time and cached than
+            recomputed on every request.
           </p>
         </article>
         <article class="principle">
           <span class="principle__n">03</span>
-          <h3>Give probabilistic output a gate</h3>
-          <p>
-            Even a highly accurate model needs a way to handle its errors. That handling is part of
-            the feature, not the polish.
-          </p>
+          <h3>Measure the change</h3>
+          <p>A fix is only a fix if the before and after numbers show it.</p>
         </article>
       </div>
     </div>

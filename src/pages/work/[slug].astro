@@ -15,6 +15,9 @@ const { project } = Astro.props;
 const neighbours = projectNeighbours(project.slug);
 const canonical = `${site.url}/work/${project.slug}`;
 
+let sectionNumber = project.sections.length;
+const nextNumber = () => String(++sectionNumber).padStart(2, '0');
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -99,18 +102,38 @@ const jsonLd = [
           </section>
         ))}
 
-        <section class="case-section">
-          <span class="case-section__label">Decisions</span>
-          <h2>Key technical decisions</h2>
-          <ul class="decisions">
-            {project.decisions.map((decision) => (
-              <li class="decision">
-                <h3>{decision.title}</h3>
-                <p set:html={inline(decision.body)} />
-              </li>
-            ))}
-          </ul>
-        </section>
+        {project.whatIDid && (
+          <section class="case-section">
+            <span class="case-section__label">{nextNumber()}</span>
+            <h2>What I did</h2>
+            <ul>
+              {project.whatIDid.map((item) => <li>{item}</li>)}
+            </ul>
+          </section>
+        )}
+
+        {project.skills && (
+          <section class="case-section">
+            <span class="case-section__label">{nextNumber()}</span>
+            <h2>Skills used</h2>
+            <p>{project.skills}</p>
+          </section>
+        )}
+
+        {project.decisions && project.decisions.length > 0 && (
+          <section class="case-section">
+            <span class="case-section__label">{nextNumber()}</span>
+            <h2>Key technical decisions</h2>
+            <ul class="decisions">
+              {project.decisions.map((decision) => (
+                <li class="decision">
+                  <h3>{decision.title}</h3>
+                  <p set:html={inline(decision.body)} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
     </div>
 

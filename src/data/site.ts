@@ -9,7 +9,7 @@ export const site = {
   companyUrl: 'https://astechware.com',
   location: 'Lahore, Pakistan',
   url: 'https://ahsantariq.dev',
-  email: 'hello@ahsantariq.dev',
+  email: 'ahsantariqgill2479@gmail.com',
   github: 'https://github.com/AhsanTariqGill',
   linkedin: 'https://www.linkedin.com/in/ahsan-tariq-a1783722b',
   cv: '/ahsan-tariq-cv.pdf',

@@ -1,6 +1,6 @@
 /**
- * Coursework, grouped by area. Course names only — no grades, marks,
- * credit hours or percentages anywhere in this file.
+ * Coursework, grouped by area. Course names only — no grades or personal
+ * identifiers anywhere in this file.
  *
  * `application` is only set where there is a concrete project to point at.
  */
@@ -15,8 +15,7 @@ export const courseGroups: CourseGroup[] = [
   {
     area: 'Databases',
     courses: ['Database Systems'],
-    application:
-      'Query optimisation on Golfpay; backend work and data modelling on Serva and Restaurant Resource.',
+    application: 'Query optimisation and caching on Golfpay and Restaurant Resource.',
   },
   {
     area: 'Algorithms',
@@ -44,7 +43,7 @@ export const courseGroups: CourseGroup[] = [
     area: 'AI and machine learning',
     courses: ['Machine Learning', 'Artificial Intelligence', 'Computer Vision and Image Processing'],
     application:
-      'The final-year project used LLMs and transformer models for its main detection task.',
+      'The final-year project is an image forgery detection tool; I trained its models in Google Colab.',
   },
   {
     area: 'Systems',
@@ -54,7 +53,7 @@ export const courseGroups: CourseGroup[] = [
     area: 'Final-year project',
     courses: ['Final Year Project I', 'Final Year Project II'],
     application:
-      'Team lead of four students; the project wrapped the models in a working system.',
+      'Team lead of four students; an image forgery detection and localisation tool.',
   },
 ];
 

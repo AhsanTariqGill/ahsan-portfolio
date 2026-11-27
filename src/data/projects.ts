@@ -20,13 +20,15 @@ export type Project = {
   cardStack: string[];
   external?: { label: string; href: string };
   sections: Section[];
-  decisions: Decision[];
+  whatIDid?: string[];
+  skills?: string;
+  decisions?: Decision[];
   seoTitle: string;
   seoDescription: string;
 };
 
 /**
- * Facts only. No metrics, no dates and no claims that are not confirmed.
+ * Facts only. No metrics and no internal product details.
  * Open questions are tracked in TODO.md, never rendered on the page.
  */
 export const projects: Project[] = [
@@ -35,288 +37,121 @@ export const projects: Project[] = [
     index: '01',
     name: 'Serva',
     kicker: 'Legal technology · Process serving · Canada',
-    tagline: 'From an instruction email to a sworn affidavit on one governed record.',
+    tagline: 'Process-serving software for Canadian agencies.',
     summary:
-      "Serva is process-serving software for Canadian agencies, delivered through A'sTechware. Intake reads instruction emails and court PDFs, an affidavit is assembled from recorded field facts, and billing is derived from logged attempts.",
-    role: 'Backend engineer',
-    scope: 'Intake · Data model · Document assembly',
+      "Serva is process-serving software for Canadian agencies, delivered through A'sTechware. I work on the FastAPI backend as the main backend lead.",
+    role: 'Backend lead',
+    scope: 'Backend · Code review · Team leadership',
     current: true,
-    stack: ['Python', 'FastAPI', 'PostgreSQL', 'Redis', 'Celery', 'Mailgun'],
+    stack: ['Python', 'FastAPI', 'PostgreSQL', 'Redis', 'Next.js'],
     cardStack: ['Python', 'FastAPI', 'PostgreSQL'],
     external: { label: 'serva.legal', href: 'https://serva.legal/' },
     sections: [
       {
-        title: 'The product',
+        title: 'Context',
         paragraphs: [
-          'A process server receives an instruction by email with court documents attached, serves them, records what happened at the door, and later swears an affidavit describing it. Serva covers that chain — intake, assignment, field attempts, proof of service and billing — on one record instead of an inbox, a spreadsheet and a folder.',
-          'The output is a legal document that a commissioner signs and a court files. Facts cannot be reconstructed later, so everything downstream has to be assembled from what was actually recorded.',
-        ],
-      },
-      {
-        title: 'The problem',
-        paragraphs: [
-          'Intake facts already sat in the covering email and its attachments, but someone re-keyed them into a form. At the other end, the affidavit asked a fixed list of questions that lived in the frontend, so a new court or a reworded form meant editing components and shipping code.',
-          'The fix had to be structural: one intake record, and one definition of what a question means, shared by the form that asks it and the document that swears to it.',
-        ],
-      },
-      {
-        title: 'The record model',
-        paragraphs: [
-          'The record has five levels — File, Cases, Documents, Jobs, Attempts — because a matter can carry more than one court file, a claim can name several defendants, one defendant can have several addresses, and each address can take several visits.',
-        ],
-        bullets: [
-          'Attempts are append-only. A correction is a compensating entry and the original stays visible, because the affidavit rests on that record.',
-          'Billing prices attempts, mileage and disbursements against an effective-dated catalogue, so a later rate change does not rewrite a closed file.',
-          'Public verification issues a per-document ID so a third party can confirm what was signed, when, and by whom, without an account.',
-        ],
-      },
-      {
-        title: 'Intake and extraction',
-        paragraphs: [
-          'Mail arrives through a Mailgun inbound webhook and is stored before any model runs. A classification step sorts the message into new request, quote request, client update or spam. Extraction then proposes a structured file from the body and the court PDFs — firm, court, file number, parties, targets, addresses and documents — with a confidence value per field.',
-        ],
-        bullets: [
-          'Messages above a configured threshold can be approved automatically; the rest wait in a review queue before any record is created.',
-          'A classifier failure is routed to review rather than treated as spam.',
-          'Approved intake creates the file, case and job records from the extracted values.',
-        ],
-      },
-      {
-        title: 'Questions as data, not frontend code',
-        paragraphs: [
-          'Field capture used to be static frontend code: every service method had a hardcoded list of questions. It is now driven by a capture profile, a versioned JSON document that declares the outcome options, the questions each method asks, their widgets, which answers are required, and when a question appears.',
-          'Both sides read the same definition. The backend publishes the profile and serves the resolved version for a job; the frontend renders whatever it describes.',
-        ],
-        bullets: [
-          'Published profiles are immutable: a change is a new file with a new reference, and a profile can extend a pinned base to add or reword fields.',
-          'Every attempt stores the profile reference it was captured under, so older answers are still read by the definition in force at the time.',
-          'A job spanning courts with different profiles captures against a composite reference built from the pinned parts.',
-          'The affidavit side is declarative too: a routing file maps court, method and jurisdiction to a form, and binding files map stable fact paths to PDF fields. A missing fact clears the field and raises a warning rather than being guessed.',
-        ],
-      },
-      {
-        title: 'My role',
-        paragraphs: [
-          "I am the main backend lead on Serva, working through A'sTechware. My work includes code reviews and backend optimisation.",
+          "Serva is process-serving software for Canadian agencies, delivered through A'sTechware.",
         ],
       },
     ],
-    decisions: [
-      {
-        title: 'Triage before extraction',
-        body: 'Classification is a short call; extraction is the costly one. Sorting first means the heavier model only runs on mail that is an instruction rather than on every newsletter and out-of-office reply.',
-      },
-      {
-        title: 'A classifier failure is not spam',
-        body: 'If the classifier errors, the message goes to review. Filing it as spam would drop a real instruction silently, which costs more than a noisy queue.',
-      },
-      {
-        title: 'Automatic where safe, reviewed where not',
-        body: 'Extraction writes a proposed record. Above a configured threshold it can be approved automatically; otherwise it waits in review, and an incomplete extraction does not auto-approve.',
-      },
-      {
-        title: 'A published profile is immutable',
-        body: 'Changing a question means publishing a new version, not editing the old one. Attempts keep the reference they were captured under, so history stays interpretable.',
-      },
-      {
-        title: 'Missing facts are cleared, not invented',
-        body: 'In affidavit assembly a missing source clears the field and raises a warning. A blank the reviewer has to fill is recoverable; a guess inside a sworn document is not.',
-      },
-      {
-        title: 'Append-only field records',
-        body: 'A sworn document rests on the attempt record, so the attempt cannot be edited. Corrections are compensating entries and the original stays visible.',
-      },
+    whatIDid: [
+      "Main backend lead on the FastAPI backend, working through A'sTechware.",
+      'Code reviews and backend optimisation.',
+      'Lead the work on Serva as team lead since June 2026.',
     ],
-    seoTitle: 'Serva — intake and data-driven affidavit capture | Ahsan Tariq',
+    skills: 'Python, FastAPI, PostgreSQL, Redis, code review, team leadership.',
+    seoTitle: 'Serva — backend work on process-serving software | Ahsan Tariq',
     seoDescription:
-      "Case study: backend work on a legal-technology platform with a Mailgun intake pipeline, per-field confidence, and versioned capture profiles shared by the form and the affidavit. Delivered through A'sTechware.",
+      "Case study: main backend lead on Serva's FastAPI backend, including code reviews and optimisation. Delivered through A'sTechware.",
   },
   {
     slug: 'restaurant-resource',
     index: '02',
     name: 'Restaurant Resource',
     kicker: 'Marketplace · Directory',
-    tagline: 'Search that stays fast while the ranking has to respect subscription tiers.',
+    tagline: 'Search that stays fast while subscription tiers are respected.',
     summary:
-      "An online directory and marketplace for restaurants, built with React, Ruby on Rails, PostgreSQL and Elasticsearch. I am the main backend lead on the project, with code reviews and optimisation across the backend.",
-    role: 'Backend engineer',
-    scope: 'Search · Subscriptions · Background indexing',
+      "An online directory and marketplace for restaurants, delivered through A'sTechware. I am the main backend lead, including code reviews.",
+    role: 'Backend lead',
+    scope: 'Search · Query optimisation · Code review',
     current: true,
-    stack: ['React', 'Ruby on Rails', 'PostgreSQL', 'Elasticsearch', 'Redis'],
+    stack: ['Ruby on Rails', 'PostgreSQL', 'Elasticsearch', 'Next.js'],
     cardStack: ['Rails', 'Elasticsearch', 'PostgreSQL'],
     sections: [
       {
         title: 'Context',
         paragraphs: [
-          'The platform lists vendors across categories, with a dedicated page per vendor, filters for category and service type, and a subscription system that lets vendors upgrade, downgrade, add features and renew. Many listings are pre-created from curated and generated data, then claimed by the vendor who owns them.',
-        ],
-      },
-      {
-        title: 'The problem',
-        paragraphs: [
-          'A marketplace loses in two directions at once. A slow search page loses buyers; a naive sort by subscription tier loses relevance and makes the directory feel broken. The ranking has to be commercially weighted and still correct across pagination, filters and category pages.',
-          'The second problem was less visible: N+1 queries on listing pages and search results, where each rendered vendor triggered extra lookups for categories, media and subscription state.',
-        ],
-      },
-      {
-        title: 'How the search layer works',
-        bullets: [
-          'The index mapping is designed around the query shape rather than mirroring the database: fields needed for ranking and filtering are denormalised into the document, so a search request does not need a join.',
-          'Relevance and tier weighting are applied inside the search query rather than by sorting the result set in Rails, because sorting after fetching breaks pagination.',
-          'Indexing runs through background jobs, so a write to a listing does not block on a search-cluster round trip.',
-          'Listing rendering uses preloaded associations and batched lookups for subscription and media data.',
-          'Database indexes support the predicates the detail and claim flows use.',
-        ],
-      },
-      {
-        title: 'My role',
-        paragraphs: [
-          "I am the main backend lead on Restaurant Resource, working through A'sTechware. My work includes code reviews and optimisation of backend queries.",
+          "An online directory and marketplace for restaurants, delivered through A'sTechware.",
         ],
       },
     ],
-    decisions: [
-      {
-        title: 'Rank in the index, paginate on the result',
-        body: 'A tier boost applied after fetching results cannot produce correct pages. The boost belongs in the scoring function, so the first page the user sees is already the ranked first page.',
-      },
-      {
-        title: 'Denormalise what you sort on',
-        body: 'Sort and filter fields are copied into the search document. Normalisation is a database virtue; a search index is a read model and should look like one.',
-      },
-      {
-        title: 'The index is a projection',
-        body: 'PostgreSQL stays the source of truth. Anything in Elasticsearch is derived, rebuildable, and can be reindexed.',
-      },
+    whatIDid: [
+      'Main backend lead, including code reviews.',
+      'Search was slow even with database indexing; I implemented Elasticsearch, which brought responses down to milliseconds.',
+      'Removed N+1 queries on listing and search pages.',
+      'Built tier-weighted ranking so subscription tiers are respected in search results.',
+      'Built background indexing jobs so writes do not wait on the search cluster.',
     ],
-    seoTitle: 'Restaurant Resource — search and backend work | Ahsan Tariq',
+    skills:
+      'Ruby on Rails, PostgreSQL, Elasticsearch, query optimisation, background jobs, code review.',
+    seoTitle: 'Restaurant Resource — Elasticsearch search and backend work | Ahsan Tariq',
     seoDescription:
-      "Case study: backend work on a restaurant directory and marketplace — Elasticsearch index design, tier-weighted ranking inside the query and N+1 removal with Ruby on Rails and PostgreSQL. Delivered through A'sTechware.",
+      "Case study: main backend lead on a restaurant directory and marketplace — Elasticsearch search, N+1 removal, tier-weighted ranking and background indexing. Delivered through A'sTechware.",
   },
   {
     slug: 'grants-hub',
     index: '03',
     name: 'The Grants Hub',
     kicker: 'SaaS · Grants discovery',
-    tagline: 'Keeping grant search aligned with PostgreSQL.',
+    tagline: 'Algolia search on a Rails and PostgreSQL backend.',
     summary:
-      'The Grants Hub helps organisations discover, track and manage grants. Search runs on Algolia with PostgreSQL as the source of truth. I worked on the backend search layer, saved lists and the synchronisation between the two.',
+      'The Grants Hub helps organisations discover, track and manage grants. I implemented Algolia search on the Rails and PostgreSQL backend.',
     role: 'Backend engineer',
-    scope: 'Search indexing · Saved lists · Sync',
-    stack: ['Python', 'FastAPI', 'PostgreSQL', 'Algolia', 'Redis', 'Celery'],
-    cardStack: ['FastAPI', 'Algolia', 'PostgreSQL'],
+    scope: 'Algolia search',
+    stack: ['Ruby on Rails', 'PostgreSQL', 'Algolia'],
+    cardStack: ['Rails', 'Algolia', 'PostgreSQL'],
     sections: [
       {
         title: 'Context',
-        paragraphs: [
-          'Grants carry deadlines, categories, funders and eligibility rules. Users search across them, filter, save a shortlist, and come back to it; organisations subscribe to the product to keep that pipeline.',
-          'Search runs on Algolia, which means grant records exist twice: once in PostgreSQL as the system of record, and once as an index shaped for retrieval.',
-        ],
-      },
-      {
-        title: 'The problem',
-        paragraphs: [
-          'The index is only correct if every write path updates it. When one does not, users do not report a stale index — they see an expired grant still appears in search.',
-          'The second constraint was latency: an index update inside the request path makes every write as slow as the external search service.',
-        ],
-      },
-      {
-        title: 'Approach',
-        bullets: [
-          'The index schema is designed from the interface: searchable attributes ordered by intent, faceting attributes chosen to match the filters people use, and replica indices for the alternate sort orders.',
-          'Grant updates are indexed in the background after the database commit. Failed indexing tasks are retried, and reconciliation checks help identify mismatches.',
-          'Sync tasks are keyed by database ID, so a repeated task updates the same record rather than adding a copy.',
-          'Partial attribute updates are used for ordinary edits; the index is rebuilt when the mapping changes.',
-          'Saved lists live in PostgreSQL with indexed join tables rather than in the search index.',
-          'Deadline filters use explicit, timezone-safe boundaries, because "closes today" is a different query in every timezone.',
-        ],
-      },
-      {
-        title: 'My role',
-        paragraphs: [
-          "I worked on the backend search layer, the saved-list model and the indexing between PostgreSQL and Algolia, delivered through A'sTechware.",
-        ],
+        paragraphs: ['The Grants Hub helps organisations discover, track and manage grants.'],
       },
     ],
-    decisions: [
-      {
-        title: 'The database is the source of truth',
-        body: 'PostgreSQL owns the record and the index is a derived read model. When the two disagree, the index is rebuilt rather than patched by hand.',
-      },
-      {
-        title: 'Index off the request path',
-        body: 'Search writes go through the queue. Coupling a user-facing write to a third-party API makes availability someone else’s decision.',
-      },
-      {
-        title: 'Saved lists are relational',
-        body: 'A shortlist is user data with ordering and permissions. It belongs in tables with constraints, not in a search document designed to be disposed of.',
-      },
-    ],
-    seoTitle: 'The Grants Hub — Algolia search and index synchronisation | Ahsan Tariq',
+    whatIDid: ['Implemented Algolia search on the Rails and PostgreSQL backend.'],
+    skills: 'Ruby on Rails, PostgreSQL, Algolia.',
+    seoTitle: 'The Grants Hub — Algolia search | Ahsan Tariq',
     seoDescription:
-      "Case study: backend search for a grants SaaS — Algolia index design, background indexing after commit and saved lists in PostgreSQL. Delivered through A'sTechware.",
+      "Case study: implementing Algolia search on the Rails and PostgreSQL backend of a grants discovery platform.",
   },
   {
     slug: 'golfpay',
     index: '04',
     name: 'Golfpay',
     kicker: 'Golf operations · Payments',
-    tagline: 'Managing concurrent tee-time bookings and payment events.',
+    tagline: 'Faster slot APIs and precomputed reports for golf courses.',
     summary:
-      'Golfpay runs tee times, memberships and payments for golf courses across web and mobile. I worked on it as an associate software engineer, mainly on bug fixing and query optimisation.',
-    role: 'Backend engineer',
-    scope: 'Availability · Bookings · Payments',
-    stack: ['Python', 'FastAPI', 'PostgreSQL', 'Redis', 'Celery'],
-    cardStack: ['FastAPI', 'PostgreSQL', 'Redis'],
+      "Tee times, memberships and payments for golf courses, delivered through A'sTechware. I worked on the backend as an associate software engineer from July 2024 to September 2025.",
+    role: 'Associate Software Engineer',
+    scope: 'API performance · Reporting · Waitlist',
+    stack: ['Ruby on Rails', 'PostgreSQL', 'ERB with Slim', 'StimulusReflex', 'ActionCable'],
+    cardStack: ['Rails', 'PostgreSQL', 'StimulusReflex'],
     sections: [
       {
         title: 'Context',
         paragraphs: [
-          'Courses publish tee times for a day, players book them from the web or a phone, members hold recurring entitlements, and staff manage the sheet, check-ins and payments from an operational dashboard.',
-          'Every one of those flows reads or writes the same scarce resource: a specific slot at a specific time on a specific course.',
-        ],
-      },
-      {
-        title: 'The problem',
-        paragraphs: [
-          'Two players selecting the same slot at the same moment should not create two bookings. A payment provider that retries its webhook should not duplicate a payment event.',
-          'Availability is also cached to keep the page fast, which adds a second place where slot state can be stale.',
-        ],
-      },
-      {
-        title: 'Approach',
-        bullets: [
-          'Availability queries are shaped around the tee sheet — one indexed range query per course and day, with slot state resolved from bookings and holds.',
-          'Booking integrity is enforced in PostgreSQL with uniqueness on the slot and row-level locking around the booking steps.',
-          "Payment events are processed idempotently using the provider's event ID.",
-          'Availability is cached for a short period and invalidated when a booking is made.',
-          'Reconciliation jobs help detect mismatches between the payment provider and the internal ledger.',
-        ],
-      },
-      {
-        title: 'My role',
-        paragraphs: [
-          "I worked on Golfpay from July 2024 to September 2025 as an associate software engineer at A'sTechware, mainly on bug fixing and query optimisation.",
+          "Tee times, memberships and payments for golf courses, delivered through A'sTechware.",
         ],
       },
     ],
-    decisions: [
-      {
-        title: 'Constraints hold under concurrency',
-        body: 'An application-level check for a free slot is a race condition with extra steps. Uniqueness and row locks hold when two requests arrive at the same moment.',
-      },
-      {
-        title: 'Payment events keyed by the provider ID',
-        body: "A retried webhook is matched against the provider's event ID, so the same event is not applied twice.",
-      },
-      {
-        title: 'Cache the read, not the truth',
-        body: 'Availability is a cached projection with a short life. The booking decision goes to the database.',
-      },
+    whatIDid: [
+      'Cut the daily slots API from about 7–12 seconds to about 2–3 seconds by merging two nested loops into one and removing database calls inside loops with eager loading.',
+      'Built nightly background jobs that precompute daily, weekly, monthly and yearly reports; report queries went from seconds to milliseconds.',
+      'Built a waitlist feature on tee-time slots that are calculated from course settings (day start and end, slot duration, admin blocks) rather than stored, handling cases such as blocked times and cancellations, and added caching to keep slot calculation fast.',
     ],
-    seoTitle: 'Golfpay — concurrent bookings and payment events | Ahsan Tariq',
+    skills:
+      'Ruby on Rails, PostgreSQL, query optimisation, caching, background jobs, ERB/Slim, StimulusReflex, ActionCable.',
+    seoTitle: 'Golfpay — API performance and reporting | Ahsan Tariq',
     seoDescription:
-      "Case study: backend work on a golf operations and payments platform — tee-sheet availability queries, booking integrity in PostgreSQL and idempotent payment events. Delivered through A'sTechware.",
+      "Case study: cutting a daily slots API from 7–12 seconds to 2–3 seconds, precomputing reports and building a slot waitlist. Delivered through A'sTechware.",
   },
   {
     // Hidden from lists and routes until the case study is revised. Keep the file.
